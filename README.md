@@ -4,7 +4,7 @@
 
 Train and run inference for ship segmentation task.
 
-![prediction example](./eda_images/prediction_example.png)
+![prediction example](./samples/baseline/prediction_example.png)
 
 ## Setup
 
@@ -61,6 +61,26 @@ Neural network is implemented in pytorch and pytorch lightning with cross entrop
 ./eda_images: images used in EDA jupyter notebook. \
 ./examples: some examples created during project development. \
 ./samples: baseline trained model and data samples for inference.
+
+## Baseline
+
+Train parameters.
+
+| Parameter  | Value |
+| ------------- | ------------- |
+| Device  | GPU T4  |
+| Learning rate  | 1e-3  |
+| Epochs  | 20  |
+| Continue training  | False  |
+
+Train and validation losses.
+
+![](./samples/baseline/train_loss.png)
+![](./samples/baseline/val_loss.png)
+
+Prediction example.
+
+![](./samples/baseline/prediction_example.png)
 
 ## TODO
 
