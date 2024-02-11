@@ -1,0 +1,9 @@
+temp/
+
+output/
+
+logs/
+lightning_logs/
+
+__pycache__/
+.vscode/
