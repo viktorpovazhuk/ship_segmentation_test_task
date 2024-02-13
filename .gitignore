@@ -7,3 +7,8 @@ lightning_logs/
 
 __pycache__/
 .vscode/
+
+*.egg-info/
+build/
+
+*.ckpt

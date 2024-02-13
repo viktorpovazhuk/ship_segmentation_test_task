@@ -1,0 +1,30 @@
+[build-system]
+requires = ["setuptools >= 61.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ship_segmentation"
+
+version = "0.1.0"
+
+requires-python = ">=3.10"
+
+authors = [
+  {name = "Viktor Povazhuk", email = "viktor.povazhuk@gmail.com"}
+]
+
+maintainers = [
+  {name = "Viktor Povazhuk", email = "viktor.povazhuk@gmail.com"}
+]
+
+description = "Don't miss any ship!"
+
+readme = "README.md"
+
+license = {file = "LICENSE.txt"}
+
+keywords = ["ship", "segmentation", "image", "processing"]
+
+[project.scripts]
+ship-train = "ship_segmentation.scripts.train:main"
+ship-predict = "ship_segmentation.scripts.predict:main"

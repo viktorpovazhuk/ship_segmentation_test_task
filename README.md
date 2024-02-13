@@ -6,12 +6,13 @@ Train and run inference for ship segmentation task.
 
 ![prediction example](./samples/baseline/prediction_example.png)
 
-## Setup
+## Installation
 
-Setup and activate conda environment:
+Run commands:
 ```
 $ conda create --name v_ship_segmentation --file requirements.txt
 $ conda activate v_ship_segmentation
+$ pip install .
 ```
 
 ## Training
@@ -19,35 +20,43 @@ $ conda activate v_ship_segmentation
 Run next command.
 
 ```
-$ python ship_segmentation/scripts/train.py \
+$ ship-train \
         --batch_size 8 \
         --learning_rate 1e-3 \
         --epochs 20 \
+        --images_path <YOUR_PATH_TO_IMAGES> \
+        --metadata_path <YOUR_PATH_TO_CSV_FILE> \
         --output_path "output"
 ```
+
+By default, output is saved in ./output.
 
 Other options can be obtained with:
 
 ```
-$ python ship_segmentation/scripts/train.py --help
+$ ship-train --help
 ```
 
 ## Inference
 
-If you want to try my trained baseline, download it from google (val_dice=0.55.ckpt): [Link](https://drive.google.com/drive/folders/1CcM5umt79DzRcDOe7YY5pR_N31gcHhCU?usp=drive_link).
+If you want to try my trained baseline:
+1. Download it from google (val_dice=0.55.ckpt): [Link](https://drive.google.com/drive/folders/1CcM5umt79DzRcDOe7YY5pR_N31gcHhCU?usp=drive_link).
+2. Save into folder ./samples/baseline/ckpts.
 
 Run next command.
 
 ```
-$ python ship_segmentation/scripts/predict.py \
+$ ship-predict \
         --image_path "samples/images/4de149bd9.jpg" \
         --ckpt_path "samples/baseline/ckpts/val_dice=0.55.ckpt"
 ```
 
+By default, output is saved in ./output/predictions.
+
 Other options can be obtained with:
 
 ```
-$ python ship_segmentation/scripts/predict.py --help
+$ ship-predict --help
 ```
 
 ## Methodology
@@ -60,7 +69,8 @@ Neural network is implemented in pytorch and pytorch lightning with cross entrop
 
 ./eda_images: images used in EDA jupyter notebook. \
 ./examples: some examples created during project development. \
-./samples: baseline trained model and data samples for inference.
+./samples: baseline trained model and data samples for inference. \
+./src: src code of project.
 
 ## Baseline
 
@@ -73,7 +83,7 @@ Train parameters.
 | Epochs  | 20  |
 | Continue training  | False  |
 
-Train and validation losses.
+Train and validation cross entropy losses.
 
 ![](./samples/baseline/train_loss.png)
 ![](./samples/baseline/val_loss.png)
@@ -85,6 +95,6 @@ Prediction example.
 ## TODO
 
 - [ ] Change loss function to Focal Loss -> retrain a model
-- [ ] Change structure of project and add .toml file for installation
+- [x] Change structure of project and add .toml file for installation
 - [ ] Use rle function from Kaggle
 - [ ] Implement prediction threshold
