@@ -4,6 +4,7 @@ output/
 
 logs/
 lightning_logs/
+results/
 
 __pycache__/
 .vscode/

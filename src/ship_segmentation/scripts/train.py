@@ -95,6 +95,9 @@ def get_dataloaders(train_ds, val_ds, input_transform, batch_size=16):
 
 
 def main():
+    # to reproduce experiments
+    np.random.seed(0)
+
     parser = argparse.ArgumentParser()
 
     parser.add_argument("--batch_size", type=int, default=16)
@@ -171,11 +174,11 @@ def main():
         logger = TensorBoardLogger("lightning_logs")
 
     early_stop_callback = EarlyStopping(
-        monitor="val_dice",
-        min_delta=1e-3,
+        monitor="val_loss",
+        min_delta=1e-5,
         patience=4,
         verbose=True,
-        mode="max",
+        mode="min",
         strict=True,
     )
     latest_checkpoint_callback = ModelCheckpoint(
