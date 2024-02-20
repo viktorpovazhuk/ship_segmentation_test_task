@@ -9,12 +9,10 @@ Train and run inference for ship segmentation task.
 ## Installation
 
 Run commands:
-```
+```{bash}
 $ git clone https://github.com/viktorpovazhuk/ship_segmentation_test_task.git
 $ cd ship_segmentation_test_task
-$ conda config --add channels defaults # to add defaults channel where some necessary packages are persisted
-$ conda config --append channels pytorch # to append pytorch channel where pytorch package is persisted
-$ conda create --name v_ship_segmentation --file requirements.txt
+$ conda create -y --name v_ship_segmentation -c defaults -c pytorch python=3.10.13=hd12c33a_0_cpython --file requirements.txt --no-default-packages # need to specify python as a first package because it is a dependency of all other packages
 $ conda activate v_ship_segmentation
 $ pip install .
 ```
