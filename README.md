@@ -44,7 +44,7 @@ $ ship-train --help
 ## Inference
 
 If you want to try my trained baseline:
-1. Download it from google (val_dice=0.55.ckpt): [Link](https://drive.google.com/drive/folders/1CcM5umt79DzRcDOe7YY5pR_N31gcHhCU?usp=drive_link).
+1. Download it from google (val_dice=0.47-v1.ckpt): [Link](https://drive.google.com/drive/folders/1CcM5umt79DzRcDOe7YY5pR_N31gcHhCU?usp=drive_link).
 2. Save into folder ./samples/baseline/ckpts.
 
 Run next command.
@@ -52,7 +52,7 @@ Run next command.
 ```
 $ ship-predict \
         --image_path "samples/images/4de149bd9.jpg" \
-        --ckpt_path "samples/baseline/ckpts/val_dice=0.55.ckpt"
+        --ckpt_path "samples/baseline/ckpts/val_dice=0.47-v1.ckpt"
 ```
 
 By default, output is saved in ./output/predictions.
@@ -84,10 +84,18 @@ Train parameters.
 | ------------- | ------------- |
 | Device  | GPU T4  |
 | Learning rate  | 1e-3  |
+| Batch size  | 8  |
 | Epochs  | 20  |
+| Limit train/val batches  | 500/100  |
+| Techniques  | ReduceLROnPlateau  |
 | Continue training  | False  |
 
-Train and validation cross entropy losses.
+Train plots.
+
+![](./samples/baseline/train_dice.png)
+![](./samples/baseline/val_dice.png)
+
+Train dice is saved each 50 batches, whereas validation metric is accumulated from the whole epoch. Therefore, validation dice is more smooth. And in general, both metrics are improving.
 
 ![](./samples/baseline/train_loss.png)
 ![](./samples/baseline/val_loss.png)
@@ -98,6 +106,7 @@ Prediction example.
 
 ## TODO
 
+- [x] Retrain the model with corrected dice score using W&B for logging
 - [ ] Change loss function to Focal Loss -> retrain a model
 - [x] Change structure of project and add .toml file for installation
 - [ ] Use rle function from Kaggle
