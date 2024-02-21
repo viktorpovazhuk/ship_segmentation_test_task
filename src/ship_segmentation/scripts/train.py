@@ -114,6 +114,7 @@ def main():
         help="Continue training from checkpoint",
     )
     parser.add_argument("--ckpt_path", default="output/ckpts/last.ckpt")
+    parser.add_argument("--loss", default="dice")
 
     parser.add_argument(
         "--use_wandb", action="store_true", help="Use wandb for logging"
@@ -157,7 +158,7 @@ def main():
     else:
         device = torch.device("cpu")
 
-    model = UNetLitModel(args.learning_rate)
+    model = UNetLitModel(learning_rate=args.learning_rate, loss=args.loss)
 
     if args.use_wandb:
         wandb.login(key=args.wandb_key)

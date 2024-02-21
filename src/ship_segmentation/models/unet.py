@@ -11,6 +11,13 @@ from torchvision.models import vgg11, VGG11_Weights
 import wandb
 
 from ship_segmentation.models.blocks import up_conv, conv
+from ship_segmentation.losses.dice_loss import DiceLoss
+
+
+LOSSES = {
+    "dice": DiceLoss,
+    "ce": nn.CrossEntropyLoss,
+}
 
 
 # realization of the paper: https://arxiv.org/pdf/1801.05746.pdf
@@ -77,12 +84,12 @@ class UNetVGG11Model(nn.Module):
 
 
 class UNetLitModel(pl.LightningModule):
-    def __init__(self, learning_rate=1e-3):
+    def __init__(self, learning_rate=1e-3, loss="dice"):
         super().__init__()
 
         self.model = UNetVGG11Model()
         self.learning_rate = learning_rate
-        self.criterion = nn.CrossEntropyLoss()
+        self.criterion = LOSSES[loss]()
         self.dice_scorer = Dice(average="micro", ignore_index=0)
 
     def forward(self, x):
